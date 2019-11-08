@@ -4,19 +4,20 @@
 <script>
   <head><head>
   <body>
-    function setup() {
+   function setup() {
   createCanvas(400, 400);
 }
 function draw() {
   background('green');
   fill(200,0,0)
-  textSize(25);
-  text('aperte enter para começar',45,300);
+  textSize(20);
+  text('aperte enter para começar',65,300);
   textSize(40)
-  text('Torre da matemática',20,100) 
+  textStyle(BOLD)
+  text('Torre da matemática',5,100) 
   fill(200,0,0) 
-  rect(5,5,5,30)
-  rect(390,5,5,30) 
+  rect(5,5,5,30)//em pé 
+  rect(390,5,5,30) //deitada
   rect(5,5,30,5)
   rect(365,5,30,5)
   rect(5,365,5,30)
