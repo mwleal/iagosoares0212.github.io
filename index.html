@@ -4,10 +4,26 @@
 <script>
   <head><head>
   <body>
-function setup() {
-  createCanvas(400, 400);
-}
+var telaAtiva = 1
 function draw() {
+   switch(telaAtiva) {
+    case 1:
+      inicio();
+      break;
+    case 2:
+      torre();
+      break;
+   }
+}
+function keyPressed() {
+    if(keyCode === ENTER && telaAtiva===1){
+      telaAtiva = 2
+  }
+}
+
+function inicio() {
+  let tela = 1
+  createCanvas(400, 400);
   background('green');
   fill(200,0,0)
   textSize(20);
@@ -23,6 +39,201 @@ function draw() {
   rect(5,390,30,5)
   rect(390,365,5,30)
   rect(365,390,30,5) 
+  
+}
+
+function torre() {
+
+  let map = [
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,2,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,2,1],
+    [1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,2,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,1],
+    [1,2,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,2,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,2,1],
+    [1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,2,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,1],
+    [1,2,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,2,1],
+    [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,2,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+  ];
+
+
+
+
+  var opcoes = [0,1];
+
+  var tileSize=50;
+
+
+  createCanvas(1202, 1552);
+
+
+
+  background(220);
+  for (let i = 0; i < map.length; i++) {
+    for (let j = 0; j < map[i].length; j++) {
+      if (map[i][j] === 1) {
+        fill(150, 0, 0);
+        rect(j * tileSize, i * tileSize, tileSize, tileSize);
+      }
+      if (map[i][j] === 2) {
+        fill(0, 150, 0);
+        rect(j * tileSize, i * tileSize, tileSize, tileSize);
+      }
+      if (map[i][j] === 3) {
+        fill(0, 150, 150);
+        rect(j * tileSize, i * tileSize, tileSize, tileSize);
+      }
+    }
+  }
+
+  if (keyIsDown(LEFT_ARROW) && !bateuNoMapa(x-5,y)) {
+    x-=10;    
+  }
+
+  if (keyIsDown(RIGHT_ARROW)&& !bateuNoMapa(x+5,y)  ){
+    x+=10;
+  }
+
+  if (!bateuNoMapa(x,y+5)&& !escada(x,y+5)) {
+    y+=10;
+  }
+
+  if (keyIsDown(DOWN_ARROW) && !bateuNoMapa(x,y+5)&& escada(x,y+5)) {
+    y+=10;
+  }
+
+  if (keyIsDown(UP_ARROW) && !bateuNoMapa(x,y-5)&& escada(x,y+5)) {
+    y-=10;
+  }
+
+  fill(0, 0, 250);
+  rect(x, y, 48, 48);
+
+
+  function bateuNoMapa(a, b) {
+    let bateu=false; 
+    for (var i = 0; i < map.length; i++) {
+      for (var j = 0; j < map[i].length; j++) {
+        if(map[i][j]==1 && colisao(a,b,j * tileSize,i * tileSize)){
+          bateu=true;
+          return bateu;
+        }
+      }
+    }
+    return bateu;
+  }
+
+  function escada(a, b) {
+    let stair=false; 
+    for (var i = 0; i < map.length; i++) {
+      for (var j = 0; j < map[i].length; j++) {
+        if(map[i][j]==2 && colisao(a,b,j * tileSize,i * tileSize)){
+          stair=true;
+          return stair;
+        }
+      }
+    }
+    return stair;
+  }
+
+  function colisao(x1,y1,x2,y2) {
+    if(x1 > x2 + 48)
+      return false;
+    if(y1 > y2 + 48)
+      return false;
+    if(x1 + 48 < x2)
+      return false;
+    if(y1 + 48 < y2)
+      return false;
+    return true;
+  }
+}
+  var x = 51
+  var y = 1451;
+
+  if (keyIsDown(LEFT_ARROW) && !bateuNoMapa(x-5,y)) {
+    x-=10;    
+  }
+
+  if (keyIsDown(RIGHT_ARROW)&& !bateuNoMapa(x+5,y)  ){
+    x+=10;
+  }
+
+  if (!bateuNoMapa(x,y+5)&& !escada(x,y+5)) {
+    y+=10;
+  }
+
+  if (keyIsDown(DOWN_ARROW) && !bateuNoMapa(x,y+5)&& escada(x,y+5)) {
+    y+=10;
+  }
+
+  if (keyIsDown(UP_ARROW) && !bateuNoMapa(x,y-5)&& escada(x,y+5)) {
+    y-=10;
+  }
+
+  fill(0, 0, 250);
+  rect(x, y, 48, 48);
+
+
+  function bateuNoMapa(a, b) {
+    let bateu=false; 
+    for (var i = 0; i < map.length; i++) {
+      for (var j = 0; j < map[i].length; j++) {
+        if(map[i][j]==1 && colisao(a,b,j * tileSize,i * tileSize)){
+          bateu=true;
+          return bateu;
+        }
+      }
+    }
+    return bateu;
+  }
+
+  function escada(a, b) {
+    let stair=false; 
+    for (var i = 0; i < map.length; i++) {
+      for (var j = 0; j < map[i].length; j++) {
+        if(map[i][j]==2 && colisao(a,b,j * tileSize,i * tileSize)){
+          stair=true;
+          return stair;
+        }
+      }
+    }
+    return stair;
+  }
+
+  function colisao(x1,y1,x2,y2) {
+    if(x1 > x2 + 48)
+      return false;
+    if(y1 > y2 + 48)
+      return false;
+    if(x1 + 48 < x2)
+      return false;
+    if(y1 + 48 < y2)
+      return false;
+    return true;
+  }
 }
 </script>
 </html>
