@@ -5,9 +5,17 @@
  function setup() {
   createCanvas(1200, 550);
 }
-
-  var x = 51
+  
+  var x = 51;
   var y = 451;
+  var lado = 1;
+  var vida = 3;
+  var pulo = 0;
+  var contd = 0;
+  var conta = 0;
+  var start = 0;
+  var x1 = 0;
+  var y1 = 0;
 
 var telaAtiva = 1
 function draw() {
@@ -25,6 +33,10 @@ function keyPressed() {
       telaAtiva = 2
   }
 }
+
+
+
+
 function inicio() {
   let tela = 1
   background('green');
@@ -36,6 +48,10 @@ function inicio() {
   text('Torre da matemática',410,100)  
   
 }
+
+
+
+
 function torre() {
   let map = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -50,7 +66,6 @@ function torre() {
     [1,0,0,0,0,3,0,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,2,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   ];
-  var opcoes = [0,1];
   var tileSize=50;
   background(220);
   for (let i = 0; i < map.length; i++) {
@@ -70,19 +85,19 @@ function torre() {
     }
   }
   if (keyIsDown(LEFT_ARROW) && !bateuNoMapa(x-5,y)) {
-    x-=10;    
+    x-=8;    
   }
   if (keyIsDown(RIGHT_ARROW)&& !bateuNoMapa(x+5,y)  ){
-    x+=10;
+    x+=8;
   }
   if (!bateuNoMapa(x,y+5)&& !escada(x,y+5)) {
-    y+=10;
+    y+=8;
   }
   if (keyIsDown(DOWN_ARROW) && !bateuNoMapa(x,y+5)&& escada(x,y+5)) {
-    y+=10;
+    y+=8;
   }
   if (keyIsDown(UP_ARROW) && !bateuNoMapa(x,y-5)&& escada(x,y+5)) {
-    y-=10;
+    y-=8;
   }
   fill(0, 0, 250);
   rect(x, y, 48, 48);
@@ -110,6 +125,18 @@ function torre() {
     }
     return stair;
   }
+  function porta(a, b) {
+    let door=false; 
+    for (var i = 0; i < map.length; i++) {
+      for (var j = 0; j < map[i].length; j++) {
+        if(map[i][j]==3 && colisao(a,b,j * tileSize,i * tileSize)){
+          door=true;
+          return door;
+        }
+      }
+    }
+    return stair;
+  }
   function colisao(x1,y1,x2,y2) {
     if(x1 > x2 + 48)
       return false;
@@ -124,6 +151,10 @@ function torre() {
 }
 
 
+
+
+
+
 function intro() {
   let map = [
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -134,11 +165,10 @@ function intro() {
     [1,4,0,0,0,0,0,0,0,0,6,0,0,0,0,0,8,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
     [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1],
-    [1,0,0,0,0,0,0,0,0,1,1,2,1,1,0,0,0,9,0,0,10,0,0,1],
+    [1,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1],
+    [1,0,0,0,0,0,0,0,1,1,2,2,1,1,0,0,0,0,0,0,9,0,0,1],
     [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
   ];
-  var opcoes = [0,1];
   var tileSize=50;
   background(220);
   for (let i = 0; i < map.length; i++) {
@@ -175,34 +205,96 @@ function intro() {
         textSize(20); 
         text('atacar e interagir com objetos',j * tileSize, i * tileSize);
       }
-      if (map[i][j] === 9) {
-        fill(0, 0, 0);
-        rect(j * tileSize, i * tileSize, tileSize, tileSize);
-      }
-          if (map[i][j] === 10) {
+          if (map[i][j] === 9) {
         fill(0, 150, 150);
         rect(j * tileSize, i * tileSize, tileSize, tileSize);
       }
       
     }
   }
+  
+  
+   textSize(20);
+   text('vidas:'+vida,100 , 100);
+  
   if (keyIsDown(LEFT_ARROW) && !bateuNoMapa(x-5,y)) {
-    x-=10;    
+    x-=5;
+    lado = 0;
   }
   if (keyIsDown(RIGHT_ARROW)&& !bateuNoMapa(x+5,y)  ){
-    x+=10;
+    x+=5;
+    lado = 1;
   }
-  if (!bateuNoMapa(x,y+5)&& !escada(x,y+5)) {
-    y+=10;
-  }
-  if (keyIsDown(DOWN_ARROW) && !bateuNoMapa(x,y+5)&& escada(x,y+5)) {
-    y+=10;
-  }
-  if (keyIsDown(UP_ARROW) && !bateuNoMapa(x,y-5)&& escada(x,y+5)) {
+  if (!bateuNoMapa(x,y+5)) 
+    y+=5; 
+   else
+    pulo = 0
+  
+  if (keyIsDown(UP_ARROW) && !bateuNoMapa(x,y-20)&& pulo<20) {
     y-=10;
+    pulo++
   }
+  if(keyIsDown(32) && conta == 0) {
+    if(lado == 1) {
+      fill(0, 0, 250);
+      rect(x+50, y, 48, 48);
+      if(colisao(x+50,y,x1,y1))
+         x1 = 2000
+    }
+    if(lado == 0) {
+      fill(0, 0, 250);
+      rect(x-50, y, 48, 48);
+        if(colisao(x-50,y,x1,y1))
+         x1 = 2000
+    }
+  conta = 50;
+  }
+  
+  
+  if(contd>0) {
+    contd--;
+  }
+  if(conta>0) {
+    conta--;
+  }
+  if(dano(x,y) && contd == 0) {
+    vida--;
+    contd = 50;
+  }
+  
+  if(vida == 0) {
+    start = 0;
+  }
+  
+  if(start == 0) {
+    x = 51;
+    y = 451;
+    lado = 1;
+    vida = 3;
+    x1 = 875;
+    y1 = 451;
+    start = 1;
+  }
+  
+  if(colisao(x,y,x1,y1) && contd == 0) {
+     vida--;
+    contd = 50;
+     }
+  
+  if(contd%10!=1) {
   fill(0, 0, 250);
   rect(x, y, 48, 48);
+  }
+  
+  fill(0, 0, 0);
+  rect(x1, y1, 48, 48);
+  
+  if(x<x1+200 && x>x1 && !bateuNoMapa(x1+5,y1))
+    x1+=3
+  if(x>x1-200 && x<x1 && !bateuNoMapa(x1-5,y1))
+    x1-=3
+  
+  
   function bateuNoMapa(a, b) {
     let bateu=false; 
     for (var i = 0; i < map.length; i++) {
@@ -215,26 +307,28 @@ function intro() {
     }
     return bateu;
   }
-  function escada(a, b) {
-    let stair=false; 
+  
+  function dano(a, b) {
+    let damage=false; 
     for (var i = 0; i < map.length; i++) {
       for (var j = 0; j < map[i].length; j++) {
         if(map[i][j]==2 && colisao(a,b,j * tileSize,i * tileSize)){
-          stair=true;
-          return stair;
+          damage=true;
+          return damage;
         }
       }
     }
-    return stair;
+    return damage;
   }
+  
   function colisao(x1,y1,x2,y2) {
-    if(x1 > x2 + 48)
+    if(x1 > x2 + 45)
       return false;
-    if(y1 > y2 + 48)
+    if(y1 > y2 + 45)
       return false;
-    if(x1 + 48 < x2)
+    if(x1 + 45 < x2)
       return false;
-    if(y1 + 48 < y2)
+    if(y1 + 45 < y2)
       return false;
     return true;
   }
