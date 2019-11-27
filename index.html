@@ -12,6 +12,7 @@ preload() {
   for(i=0; i<7 ; i++) {
       idle[i] = loadImage('_IDLE_00'+i+'.png');
   }
+}
   
     
     
@@ -294,8 +295,11 @@ function intro() {
      vida--;
     contd = 50;
      }
-  
-  image(idle[1],x,y)
+  for(i=0;!keyIsDown();i++) {
+    image(idle[i],x,y);
+    if(i=6)
+      i=0
+  }
   
   fill(0, 0, 0);
   rect(x1, y1, 48, 48);
